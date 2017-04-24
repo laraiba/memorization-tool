@@ -24,11 +24,24 @@
         </div>
         <script src="random.min.js"></script>
         <script>
+            const getParameterByName = function getParameterByName(name, url) {
+                if (!url) url = window.location.href;
+                name = name.replace(/[\[\]]/g, "\\$&");
+                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                    results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, " "));
+            }
+
             const randomSuratNumber = document.getElementById('random-surat-number');
             const btnSeeAnswer = document.getElementById('btn-see-answer');
             const btnRandomize = document.getElementById('btn-randomize');
             const engine = Random.engines.mt19937().autoSeed();
-            const randomDistribution = Random.integer(78, 114);
+            const randomDistribution = Random.integer(
+                getParameterByName('start') || 78,
+                getParameterByName('end') || 114
+            );
             const suratNumbers = {
                 78: 'An-naba',
                 79: 'An-Naazi\'aat',
