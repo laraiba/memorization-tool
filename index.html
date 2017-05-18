@@ -24,7 +24,7 @@
         <div id="main">
             What is surat number <strong id="random-surat-number"></strong>?
             <div id="answer"></div><br /><br />
-            <button id="btn-randomize">Randomize</button>
+            <button id="btn-randomize">Next</button>
             <button id="btn-see-answer">See answer</button>
         </div>
         <script src="random.min.js"></script>
@@ -47,6 +47,7 @@
                 getParameterByName('start') || 78,
                 getParameterByName('end') || 114
             );
+
             const suratNumbers = {
                 78: 'النبإ',
                 79: 'النازِعات',
@@ -86,6 +87,17 @@
                 113: 'الفلق',
                 114: 'الناس',
             };
+
+            let buffer = [];
+            const getNextSurat = function getNextSurat() {
+                if (buffer.length <= 0) {
+                    var randomized = Object.keys(suratNumbers).slice(0);
+                    Random.shuffle(engine, randomized);
+                    buffer = buffer.concat(randomized);
+                }
+
+                return buffer.shift();
+            }
 
             const ayatNumbers = {
                 78: 40,
@@ -133,7 +145,7 @@
             };
 
             const randomize = function randomize() {
-                randomSuratNumber.innerHTML = randomDistribution(engine);
+                randomSuratNumber.innerHTML = getNextSurat();// randomDistribution(engine);
             };
 
             const reveal_answer = function reveal_answer() {
