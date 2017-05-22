@@ -5,6 +5,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Quran Memorization Tool</title>
         <style>
+            @font-face {
+                font-family: Uthman;
+                src: url('UthmanTN1 Ver10.otf');
+            }
+
             * {
                 font-family: arial;
             }
@@ -15,8 +20,17 @@
             }
 
             #answer {
+                min-height: 5em;
+            }
+
+            #answer, #answer > div {
                 font-weight: bold;
-                min-height: 3em;
+            }
+
+            #answer > div:first-child {
+                font-family: Uthman;
+                font-weight: normal;
+                font-size: 2em;
             }
         </style>
     </head>
@@ -161,7 +175,7 @@
 
             const reveal_answer = function reveal_answer() {
                 const suratNumber = parseInt(randomSuratNumber.innerHTML);
-                answer.innerHTML = '<div>' + suratNumbers[suratNumber] + '<br />' + ayatNumbers[suratNumber] + ' ayat </div>';
+                answer.innerHTML = '<div>' + suratNumbers[suratNumber] + '</div><div>' + ayatNumbers[suratNumber] + ' ayat </div>';
             };
 
             btnSeeAnswer.addEventListener('click', function(e) {
