@@ -22,10 +22,10 @@
     </head>
     <body>
         <div id="main">
-            What is surat number <strong id="random-surat-number"></strong>?
+            What is surat number <br /><strong id="random-surat-number"></strong>?
             <div id="answer"></div><br /><br />
-            <button id="btn-randomize">Next</button>
             <button id="btn-see-answer">See answer</button>
+            <button id="btn-randomize">Next &gt;</button>
         </div>
         <script src="random.min.js"></script>
         <script>
@@ -91,7 +91,18 @@
             let buffer = [];
             const getNextSurat = function getNextSurat() {
                 if (buffer.length <= 0) {
-                    var randomized = Object.keys(suratNumbers).slice(0);
+
+                    const start = parseInt(getParameterByName('start')) || 78;
+                    const end = parseInt(getParameterByName('end')) || 114;
+
+                    var randomized = [];
+                    for (var i in suratNumbers) {
+                        var j = parseInt(i);
+                        if (j >= start && j <= end) {
+                            randomized.push(i);
+                        }
+                    }
+
                     Random.shuffle(engine, randomized);
                     buffer = buffer.concat(randomized);
                 }
